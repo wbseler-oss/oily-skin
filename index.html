@@ -1,440 +1,100 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="ru">
 <head>
-  <meta charset="utf-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1"/>
-  <title>Жирная кожа лица — гайд</title>
-  <meta name="description" content="Готовая система: диагностика → сценарии → уход → план на 30 дней. Уменьшает блеск, забитые поры и воспаления."/>
-
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&display=swap" rel="stylesheet">
-
-  <style>
-    :root{
-      --bg0:#070315;
-      --bg1:#120526;
-
-      --violet:#7c3aed;
-      --pink:#ec4899;
-      --amber:#f59e0b;
-
-      --glass: rgba(255,255,255,.08);
-      --glass2: rgba(255,255,255,.05);
-      --stroke: rgba(255,255,255,.14);
-      --text: rgba(255,255,255,.92);
-      --muted: rgba(255,255,255,.68);
-      --muted2: rgba(255,255,255,.55);
-    }
-
-    *{ box-sizing:border-box; }
-    html,body{ height:100%; }
-    body{
-      margin:0;
-      font-family: Manrope, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
-      color: var(--text);
-      background: radial-gradient(1400px 700px at 18% 10%, rgba(124,58,237,.45), transparent 58%),
-                  radial-gradient(1200px 700px at 78% 18%, rgba(236,72,153,.33), transparent 60%),
-                  linear-gradient(180deg, var(--bg0), var(--bg1) 55%, var(--bg0));
-      overflow-x:hidden;
-    }
-
-    .stars{
-      position:fixed; inset:0; pointer-events:none; opacity:.75;
-      mix-blend-mode:screen; filter: blur(.2px);
-      background:
-        radial-gradient(1px 1px at 10% 15%, rgba(255,255,255,.45), transparent 60%),
-        radial-gradient(1px 1px at 18% 55%, rgba(255,255,255,.25), transparent 60%),
-        radial-gradient(1.5px 1.5px at 35% 22%, rgba(255,255,255,.40), transparent 60%),
-        radial-gradient(1px 1px at 52% 40%, rgba(255,255,255,.25), transparent 60%),
-        radial-gradient(2px 2px at 68% 18%, rgba(255,255,255,.32), transparent 60%),
-        radial-gradient(1px 1px at 76% 66%, rgba(255,255,255,.20), transparent 60%),
-        radial-gradient(1.5px 1.5px at 88% 32%, rgba(255,255,255,.28), transparent 60%),
-        radial-gradient(1px 1px at 92% 82%, rgba(255,255,255,.18), transparent 60%);
-    }
-
-    .wrap{ max-width: 1120px; margin:0 auto; padding: 0 18px; }
-
-    .glass{
-      background: linear-gradient(180deg, var(--glass), var(--glass2));
-      border: 1px solid var(--stroke);
-      box-shadow: 0 26px 90px rgba(0,0,0,.45);
-      backdrop-filter: blur(14px);
-      -webkit-backdrop-filter: blur(14px);
-    }
-    .glow{
-      box-shadow:
-        0 0 0 1px rgba(255,255,255,.10) inset,
-        0 26px 90px rgba(124,58,237,.22),
-        0 26px 90px rgba(236,72,153,.14);
-    }
-
-    header{
-      padding: 18px 0 4px;
-      position: sticky; top:0; z-index:50;
-      backdrop-filter: blur(10px);
-      -webkit-backdrop-filter: blur(10px);
-      background: linear-gradient(180deg, rgba(7,3,21,.68), rgba(7,3,21,0));
-      border-bottom: 1px solid rgba(255,255,255,.06);
-    }
-    .nav{ display:flex; align-items:center; justify-content:space-between; gap: 14px; }
-    .brand{ display:flex; align-items:center; gap:12px; text-decoration:none; color:var(--text); }
-    .logo{
-      width:44px;height:44px;border-radius:16px;
-      display:grid;place-items:center;
-      font-weight:800; letter-spacing:.5px;
-    }
-    .brand small{ display:block; color: var(--muted2); margin-top:2px; font-weight:600; }
-
-    .links{ display:none; gap:18px; align-items:center; }
-    .links a{ color: var(--muted); text-decoration:none; font-weight:700; font-size: 13px; opacity:.9; }
-    .links a:hover{ color: #fff; opacity:1; }
-    @media (min-width: 860px){ .links{ display:flex; } }
-
-    .btn{
-      position:relative;
-      display:inline-flex;
-      align-items:center;
-      justify-content:center;
-      gap:10px;
-      padding: 14px 18px;
-      border-radius: 999px;
-      border:1px solid rgba(255,255,255,.16);
-      text-decoration:none;
-      color:#fff;
-      font-weight:800;
-      letter-spacing:.2px;
-      cursor:pointer;
-      user-select:none;
-      background: linear-gradient(180deg, rgba(255,255,255,.14), rgba(255,255,255,.06));
-      box-shadow: 0 18px 70px rgba(0,0,0,.45);
-      transition: transform .15s ease, filter .15s ease;
-    }
-    .btn:hover{ transform: translateY(-1px); filter: brightness(1.05); }
-    .btn:active{ transform: translateY(0px); }
-    .btn::before{
-      content:"";
-      position:absolute;
-      inset:-2px;
-      border-radius:999px;
-      background: linear-gradient(90deg, rgba(124,58,237,.95), rgba(236,72,153,.95), rgba(245,158,11,.9));
-      filter: blur(12px);
-      opacity:.55;
-      z-index:-1;
-      transition: opacity .2s ease;
-    }
-    .btn:hover::before{ opacity:.9; }
-
-    .btn.secondary{
-      background: linear-gradient(180deg, rgba(255,255,255,.10), rgba(255,255,255,.04));
-      font-weight:800;
-      color: rgba(255,255,255,.9);
-    }
-    .btn.secondary::before{ opacity:.28; filter: blur(14px); }
-
-    .hint{ color: var(--muted2); font-size: 12px; line-height: 1.5; }
-
-    .hero{ padding: 34px 0 22px; }
-    .hero-grid{ display:grid; gap: 18px; align-items:stretch; }
-    @media (min-width: 980px){ .hero-grid{ grid-template-columns: 1.05fr .95fr; gap: 22px; } }
-
-    .hero-left{ padding: 18px 0; }
-    .kicker{
-      display:inline-flex;
-      align-items:center;
-      gap:10px;
-      border-radius: 999px;
-      padding: 10px 14px;
-      font-size: 13px;
-      font-weight: 700;
-      color: rgba(255,255,255,.86);
-    }
-    .dot{
-      width:8px;height:8px;border-radius:99px;
-      background: #34d399;
-      box-shadow: 0 0 24px rgba(52,211,153,.6);
-    }
-
-    h1{
-      margin: 14px 0 10px;
-      font-size: clamp(30px, 4vw, 46px);
-      line-height: 1.05;
-      letter-spacing: -.6px;
-    }
-    h1 .grad{
-      background: linear-gradient(90deg, rgba(255,255,255,.95), rgba(255,255,255,.75));
-      -webkit-background-clip: text;
-      background-clip:text;
-      color:transparent;
-    }
-    .subtitle{
-      color: rgba(255,255,255,.76);
-      font-size: 16px;
-      line-height: 1.65;
-      margin: 10px 0 18px;
-      max-width: 560px;
-    }
-
-    .cta-row{ display:flex; flex-wrap:wrap; gap: 12px; margin: 12px 0 10px; }
-
-    .scroll-pill{
-      margin-top: 16px;
-      display:inline-flex;
-      align-items:center;
-      gap:12px;
-      padding: 12px 16px;
-      border-radius: 999px;
-      color: rgba(255,255,255,.78);
-      text-decoration:none;
-      font-weight:800;
-      font-size: 13px;
-      background: linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.04));
-      border:1px solid rgba(255,255,255,.12);
-    }
-    .scroll-pill span{
-      width:32px;height:32px;border-radius:999px;
-      display:grid;place-items:center;
-      background: rgba(255,255,255,.06);
-      border:1px solid rgba(255,255,255,.10);
-    }
-
-    .hero-right{
-      border-radius: 28px;
-      padding: 18px;
-      position:relative;
-      overflow:hidden;
-    }
-    .hero-right::before{
-      content:"";
-      position:absolute;
-      inset:-120px;
-      background: radial-gradient(700px 320px at 60% 15%, rgba(255,255,255,.22), transparent 60%);
-      opacity:.35;
-      pointer-events:none;
-    }
-
-    .portrait{
-      position:relative;
-      border-radius: 22px;
-      overflow:hidden;
-      border: 1px solid rgba(255,255,255,.14);
-      background: linear-gradient(180deg, rgba(124,58,237,.18), rgba(236,72,153,.10));
-      min-height: 420px;
-    }
-
-    /* ✅ ТВОЯ КАРТИНКА ДЕВУШКИ */
-    .portrait .img{
-      position:absolute; inset:0;
-      background: url("./images/girl.png") center / cover no-repeat;
-      filter: saturate(1.05) contrast(1.02);
-    }
-    /* лёгкая магическая дымка/свечение поверх */
-    .portrait::after{
-      content:"";
-      position:absolute; inset:0;
-      background:
-        radial-gradient(340px 220px at 70% 25%, rgba(255,255,255,.18), transparent 60%),
-        radial-gradient(520px 420px at 70% 60%, rgba(236,72,153,.12), transparent 60%),
-        linear-gradient(180deg, rgba(0,0,0,.10), rgba(0,0,0,.35));
-      pointer-events:none;
-    }
-
-    .bubble{
-      position:absolute;
-      right: 18px;
-      bottom: 18px;
-      width: min(320px, 92%);
-      border-radius: 18px;
-      padding: 14px 14px 12px;
-    }
-    .bubble h3{ margin: 0; font-size: 18px; line-height: 1.15; letter-spacing: -.2px; }
-    .bubble p{ margin: 6px 0 0; color: rgba(255,255,255,.72); font-size: 13px; line-height: 1.45; }
-
-    .section-title{
-      text-align:center;
-      margin: 34px 0 18px;
-      font-size: clamp(22px, 3.2vw, 34px);
-      letter-spacing: -.5px;
-      font-weight: 800;
-    }
-
-    .guide-block{
-      margin-top: 22px;
-      border-radius: 28px;
-      padding: 18px;
-    }
-    .guide-grid{ display:grid; gap: 16px; align-items:stretch; }
-    @media (min-width: 980px){ .guide-grid{ grid-template-columns: 1.05fr .95fr; gap: 18px; } }
-
-    .guide-left{
-      border-radius: 22px;
-      padding: 18px;
-      position:relative;
-      overflow:hidden;
-      min-height: 280px;
-    }
-
-    /* ✅ ТВОЯ КАРТИНКА ПАЧКИ/ОБЛОЖКИ */
-    .guide-mock{
-      height: 280px;
-      border-radius: 18px;
-      overflow:hidden;
-      border: 1px solid rgba(255,255,255,.14);
-      background: url("./images/guide.png") center / contain no-repeat;
-    }
-
-    .guide-right{
-      border-radius: 22px;
-      padding: 18px;
-      position:relative;
-      overflow:hidden;
-    }
-    .price{ font-size: 34px; font-weight: 900; letter-spacing: -.6px; }
-    .price small{ font-size: 14px; font-weight: 800; color: rgba(255,255,255,.70); margin-left: 8px; }
-
-    .check{
-      margin: 12px 0 0; padding:0; list-style:none;
-      display:grid; gap: 10px;
-      color: rgba(255,255,255,.78);
-      font-weight: 700;
-      font-size: 14px;
-    }
-    .check li{ display:flex; gap:10px; align-items:flex-start; }
-    .check b{ color:#34d399; text-shadow: 0 0 18px rgba(52,211,153,.35); }
-
-    .bottom-pill{
-      margin: 18px auto 44px;
-      max-width: 700px;
-      text-align:center;
-      border-radius: 999px;
-      padding: 14px 16px;
-      color: rgba(255,255,255,.78);
-      font-weight: 800;
-      font-size: 14px;
-    }
-
-    .muted{ color: var(--muted); }
-    .muted2{ color: var(--muted2); }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Жирная кожа лица: гайд и решение</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            background: radial-gradient(circle at center, #2d0b5a 0%, #0a0118 100%);
+            color: white;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        .neon-border {
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 0 15px rgba(168, 85, 247, 0.4);
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+        }
+        .gradient-button {
+            background: linear-gradient(90deg, #7c3aed, #db2777);
+            transition: transform 0.2s;
+        }
+        .gradient-button:hover {
+            transform: scale(1.05);
+        }
+    </style>
 </head>
+<body class="p-4 md:p-10">
 
-<body>
-  <div class="stars" aria-hidden="true"></div>
+    <section class="max-w-4xl mx-auto text-center md:text-left mb-16">
+        <h1 class="text-4xl md:text-6xl font-bold mb-4 leading-tight">
+            Жирная кожа лица: <br>
+            <span class="text-yellow-400">почему быстро жирнеет</span> <br>
+            и что делать
+        </h1>
+        <p class="text-lg text-purple-200 mb-8 max-w-xl">
+            Вместо хаоса советов — готовая система: диагностика → сценарий → уход → план на 30 дней.
+        </p>
 
-  <header>
-    <div class="wrap nav">
-      <a class="brand" href="#">
-        <div class="logo glass glow">G</div>
-        <div>
-          <div style="font-weight:900; line-height:1;">Гайд по уходу</div>
-          <small>Жирная кожа • 30 дней</small>
-        </div>
-      </a>
-
-      <nav class="links" aria-label="Навигация">
-        <a href="#inside">Что внутри</a>
-        <a href="#price">Цена</a>
-      </nav>
-
-      <a class="btn secondary" href="#price">Скачать PDF</a>
-    </div>
-  </header>
-
-  <main class="wrap">
-    <section class="hero">
-      <div class="hero-grid">
-        <div class="hero-left">
-          <div class="kicker glass">
-            <span class="dot"></span>
-            Вместо хаоса советов — готовая система:
-            <span class="muted2">диагностика → сценарий → уход → план на 30 дней</span>
-          </div>
-
-          <h1>
-            <span class="grad">Жирная кожа лица:</span><br/>
-            почему быстро жирнеет<br/>и что делать
-          </h1>
-
-          <p class="subtitle">
-            Вы перестанете “сушить” и начнёте делать то, что реально уменьшает блеск,
-            забитые поры и воспаления.
-          </p>
-
-          <div class="cta-row">
-            <a class="btn" href="https://example.com/quiz" target="_blank" rel="noopener">➜ Пройти тест (1 мин)</a>
-            <a class="btn secondary" href="#price">Скачать полный PDF</a>
-          </div>
-
-          <div class="hint">
-            * Материал информационный. При боли / отёке / мокнутии / сильном зуде — лучше к дерматологу.
-          </div>
-
-          <a class="scroll-pill glass" href="#inside">
-            <span>↓</span> ЛИСТАЙ ВНИЗ — покажу “что внутри” и как это работает
-          </a>
-        </div>
-
-        <div class="hero-right glass glow">
-          <div class="portrait">
-            <div class="img" aria-hidden="true"></div>
-
-            <div class="bubble glass glow">
-              <h3>«Почему блестит<br/>уже через 2 часа?»</h3>
-              <p>Сценарий чаще не один —<br/>мы найдём ваш.</p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <div id="inside"></div>
-
-    <h2 class="section-title" style="margin-top:42px;">
-      Как выглядит гайд <span style="font-weight:800; color: rgba(245,158,11,.95);">(оплата 500 ₽)</span>
-    </h2>
-
-    <section class="guide-block glass glow" id="price">
-      <div class="guide-grid">
-        <div class="guide-left glass">
-          <div class="muted" style="font-weight:800; margin-bottom:10px;">Превью</div>
-          <div class="guide-mock" aria-label="Превью гайда"></div>
-          <div class="hint" style="margin-top:10px;">Если хочешь — подгоню размер/позицию 1-в-1 как в макете.</div>
-        </div>
-
-        <div class="guide-right glass">
-          <div style="display:flex; align-items:flex-end; justify-content:space-between; gap:10px;">
-            <div>
-              <div style="font-size:20px; font-weight:900; letter-spacing:-.3px;">
+        <div class="flex flex-col gap-4 w-full md:w-64">
+            <button class="gradient-button py-3 px-6 rounded-full font-bold shadow-lg">
+                ➜ Пройти тест (1 мин)
+            </button>
+            <button class="bg-white/10 border border-white/20 py-3 px-6 rounded-full font-bold hover:bg-white/20 transition">
                 Скачать полный PDF
-              </div>
-              <div class="muted2" style="margin-top:6px;">Скачивание сразу после оплаты</div>
-            </div>
-            <div class="price">500 ₽<small>оплата</small></div>
-          </div>
-
-          <ul class="check">
-            <li><b>✔</b> Диагностика: что именно у тебя</li>
-            <li><b>✔</b> Сценарии A/B/C: что делать и как идти</li>
-            <li><b>✔</b> База ухода без агрессивных ошибок</li>
-            <li><b>✔</b> SPF + как смывать без раздражения</li>
-            <li><b>✔</b> План на 30 дней + триггеры</li>
-          </ul>
-
-          <div style="margin-top:16px; display:flex; gap:12px; flex-wrap:wrap;">
-            <a class="btn" href="https://example.com/pay" target="_blank" rel="noopener">Скачать полный PDF</a>
-            <a class="btn secondary" href="https://example.com/quiz" target="_blank" rel="noopener">Пройти тест</a>
-          </div>
-
-          <div class="hint" style="margin-top:10px;">
-            * При выраженном воспалении и боли — лучше очно к дерматологу.
-          </div>
+            </button>
         </div>
-      </div>
     </section>
 
-    <div class="bottom-pill glass">
-      ↓ Почему это купят — что внутри и зачем это работает
-    </div>
-  </main>
+    <section class="max-w-6xl mx-auto mb-20 text-center">
+        <h2 class="text-2xl font-bold mb-10">Что вы получите в итоге</h2>
+        <div class="grid grid-cols-2 md:grid-cols-5 gap-6">
+            <div class="flex flex-col items-center">
+                <div class="w-24 h-24 mb-4 rounded-full neon-border flex items-center justify-center bg-purple-900/30">
+                    <span class="text-3xl">🧭</span>
+                </div>
+                <h3 class="font-bold text-sm">Диагностика</h3>
+            </div>
+            <div class="flex flex-col items-center">
+                <div class="w-24 h-24 mb-4 rounded-full neon-border flex items-center justify-center bg-purple-900/30">
+                    <span class="text-3xl">🧪</span>
+                </div>
+                <h3 class="font-bold text-sm">База ухода</h3>
+            </div>
+            <div class="flex flex-col items-center">
+                <div class="w-24 h-24 mb-4 rounded-full neon-border flex items-center justify-center bg-purple-900/30">
+                    <span class="text-3xl">📝</span>
+                </div>
+                <h3 class="font-bold text-sm">Сценарии</h3>
+            </div>
+            <div class="flex flex-col items-center">
+                <div class="w-24 h-24 mb-4 rounded-full neon-border flex items-center justify-center bg-purple-900/30">
+                    <span class="text-3xl">🧴</span>
+                </div>
+                <h3 class="font-bold text-sm">Как SPF и смывать</h3>
+            </div>
+            <div class="flex flex-col items-center">
+                <div class="w-24 h-24 mb-4 rounded-full neon-border flex items-center justify-center bg-purple-900/30">
+                    <span class="text-3xl">🎯</span>
+                </div>
+                <h3 class="font-bold text-sm">Триггеры</h3>
+            </div>
+        </div>
+    </section>
+
+    <section class="max-w-2xl mx-auto glass-card p-8 text-center neon-border">
+        <h2 class="text-2xl font-bold mb-6">Как выглядит гайд <span class="text-yellow-400 text-sm">(оплата 500 ₽)</span></h2>
+        <div class="flex flex-col gap-4">
+            <button class="bg-gradient-to-r from-purple-600 to-pink-600 py-4 px-10 rounded-xl font-bold text-xl shadow-2xl">
+                Скачать полный PDF (500 ₽)
+            </button>
+        </div>
+    </section>
+
 </body>
 </html>
